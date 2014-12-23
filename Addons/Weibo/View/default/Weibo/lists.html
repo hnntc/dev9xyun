@@ -1,0 +1,108 @@
+<extend name="Base/common" />
+<block name="head"><head><title>微博管理</title></head></block>
+<block name="body">
+<div class="span9 page_message">
+<section id="contents"> 
+	 <ul class="tab-nav nav">
+		<li class="current"><a href="{:addons_url('Weibo://Weibo/lists')}">微博列表<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://Grant/lists')}">授权页面<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://Editor/lists')}">微博编辑器<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://History/lists')}">历史微博<b class="arrow fa fa-sort-up"></b></a></li>
+      <li class=""><a href="{:addons_url('Weibo://Rank/lists')}">排行榜<b class="arrow fa fa-sort-up"></b></a></li>
+	  </ul>
+	  
+	<p class="normal_tips">
+        以下帐号信息均为托管到本网站服务器，如有过期请及时进行更新</br>
+		{$message}
+    </p>
+	<div class="table-bar">
+        <div class="fl">
+			<div class="tools">
+				<a class="btn" href="{:addons_url('Weibo://Grant/lists')}">新 增</a>
+				<if condition="$del_button"><php> $del_url || $del_url = U('del?model='.$model['aid']);</php>
+				<button class="btn ajax-post confirm" target-form="ids" url="{$del_url}">删 除</button></if>
+				<if condition="$del_button"><php> $update_url || $update_url = U('update?model='.$model['aid']);</php>
+				<button class="btn ajax-post confirm" target-form="ids" url="{$update_url}">选为发送微博的帐号</button>
+				</if>
+			</div>
+        </div>
+        <!-- 高级搜索 -->
+        <if condition="$search_button">
+        <div class="search-form fr cf">
+          <div class="sleft">
+            <php> $search_url || $search_url = addons_url('Weibo://Weibo/lists');</php>
+            <input type="text" name="screen_name" class="search-input" value="{:I('screen_name')}" placeholder="请输入要查找的帐户">
+            <a class="sch-btn" href="javascript:;" id="search" url="{$search_url}"><i class="btn-search"></i></a> </div>
+        </div>
+        </if>
+      </div>
+	<div class="data-table">
+        <div class=" table-striped">
+          <table cellpadding="0" cellspacing="1">
+
+				<thead>
+					<tr>
+					 <if condition="$check_all"><th class="row-selected row-selected"> <input class="regular-checkbox check-all" type="checkbox" id="checkAll"><label for="checkAll"/></th></if>
+							<th >帐户</th>
+							<th width="100">状态</th>
+							<th width="80">更新</th>
+							<th width="200">添加时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<volist name="list_data" id="data">
+					<tr>
+					  <if condition="$check_all">
+					  <td>
+						<input class="ids regular-checkbox" type="checkbox" value="{$data.aid}" name="ids[]" id="check_{$data.aid}"><label for="check_{$data['aid']}"/>
+					  </td>
+					  </if>
+						<td>{$data.screen_name}</td>
+						<td>{$data.available}</td>
+						<td><a class="btn" href="{:addons_url('Weibo://Grant/update_grant?aid='.$data['aid'])}">更新</a></td>
+						<td>{$data.date}</td>
+					</tr>
+
+				</volist>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!---下边分页-->
+	 <div class="table-bar" style="margin-bottom:20px">
+        <div class="fl">
+        	<div class="page" style="margin:0"> {$_page|default=''} </div>
+        </div>
+        
+      </div>
+	</div>
+</section>
+	
+</block>
+<block name="script"> 
+  <script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+
+})
+</script> 
+</block>

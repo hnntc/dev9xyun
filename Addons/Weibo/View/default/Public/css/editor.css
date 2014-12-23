@@ -1,0 +1,251 @@
+#main_editor{
+	margin:0px;
+	padding:0px;
+	width:360px;
+	height:280px;
+	border:0px solid red;
+}
+#main_editor #text{
+	resize: none;
+	width:358px;
+	height:70px;
+	font-size:18;
+	padding:0px;
+	border:2px #999 solid;
+	
+}
+#main_editor .ttl{
+	font-size:18px;
+	color:#666;
+	font-weight:bold;
+}
+#main_editor .count_num{
+	font-size:10px;
+	margin-left:-10px;
+}
+#main_editor #booter{
+	width:360px;
+	height:30px;
+	border-bottom:0px solid red;
+	margin-top:3px;
+	float：:left;
+}
+/*表情*/
+#emoji{
+	position:relative;
+	float:left;
+	width:40px;
+	height:32px;
+	margin-left:10px;
+}
+#emoji_list{
+	width:340px;
+	height:150px;
+	border:1px solid #999;
+	margin-top:33px;
+	margin-left:0px;
+	overflow:hidden;
+	display:none;
+}
+#emoji_link{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:30px;
+	height:27px;
+	cursor:pointer;
+	padding-left:4px;
+	padding-top:5px;
+}
+/*图片*/
+#pic{
+	position:relative;
+	float:left;
+	width:40px;
+	height:32px;
+	margin-left:10px;
+}
+#pic_list{
+	width:300px;
+	height:100px;
+	border:1px solid #999;
+	margin-top:33px;
+	margin-left:-50px;
+	display:none;
+}
+#pic_link{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:30px;
+	height:27px;
+	cursor:pointer;
+	padding-left:4px;
+	padding-top:5px;
+}
+/*话题*/
+#topic{
+	position:relative;
+	float:left;
+	width:40px;
+	height:32px;
+	margin-left:10px;
+}
+#topic{
+	padding-left:4px;
+	padding-top:5px;
+	cursor:pointer;
+}
+#submit{
+	cursor:pointer;
+	width:90px;
+	height:40px;
+	float:left;
+	margin-left:110px;
+}
+/*显示隐藏*/
+.chosen  #emoji_list{
+	display:block;
+}
+
+.chosen #pic_list{
+	display:block;	
+}
+/*图片下拉*/
+#img_container{
+	float:left;	
+}
+#img_container li{
+	list-style:none;
+	float:left;
+	margin-left:5px;
+	margin-right:3px;
+	
+}
+/*表情*/
+#emoji_list .emoji_head{
+	height:120px;
+	width:330px;
+	float:left;
+	border:1px solid #999;
+	margin-left:4px;
+	overflow-y:scroll;
+	overflow-x:none;
+}
+#emoji_list .emoji_head li{
+	list-style:none;
+	float:left;
+	width:23px;
+	height:23px;
+	border-right:#666 1px dashed;
+	border-bottom:#666 1px dashed;
+	cursor:pointer;
+}
+#emoji_list .emoji_bar{
+	width:auto;
+	height:22px;
+	background:#ccc;
+	float:left;
+	margin-top:4px;
+	margin-left:4px;
+	padding:1px 1px 1px -1px;
+	border:1px solid #999;
+	
+} 
+#emoji_list .emoji_bar .emoji_li{
+	list-style:none;
+	border-left:1px solid #999;
+	width:auto;
+	padding:0 3px 0 3px;
+	height:20px;
+	color:#555;
+	font-size:14px;
+	cursor:pointer;
+	float:left;
+
+}
+#emoji_list .emoji_bar .emoji_li:hover{
+	color:#F30;
+}
+#emoji_list .emoji_bar .chosen{
+	border-bottom:#F30 2px solid;
+}
+#show{
+	width:360px; 
+	height:120px; 
+	border-top:1px solid #ccc; 
+	margin-top:0px;
+	overflow:hidden;
+}
+#message_content{
+	width:auto;
+	height:120px;
+	color:#666;
+	margin:0 auto;	
+}
+/*结果显示*/
+#message_content{
+	width:360px;
+	height:120px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	border:0px solid green;
+	
+}
+.success{
+	width:340px;
+	height:auto;
+	border-bottom:1px dashed red;
+	float:left;
+}
+.success_num{
+	height:auto;
+	width:200px;
+	font-size:16px;
+	border-bottom:0px solid black;
+}
+.success_user{
+	width:300px;
+	height:auto;
+	border:1px dashed #ccc;
+	float:left;
+	margin-left:30px;
+}
+.success_user li{
+	width:auto;
+	height:auto;
+	float:left;
+	margin-left:4px;
+	list-style:none;
+	background:#CCC;
+}
+.error{
+	width:340px;
+	height:auto;
+	border-bottom:1px dashed red;
+	float:left;
+}
+.error_num{
+	height:auto;
+	width:200px;
+	font-size:16px;
+	border-bottom:0px solid black;
+}
+.error li{
+	width:300px;
+	height:auto;
+	border:1px dashed #ccc;
+	margin-left:30px;
+	list-style:none;
+}
+.error li .second{
+	
+}
+.error li .third{
+	width:280px;
+	height:auto;
+	border:1px solid #CCC;
+	margin-left:20px;
+	word-wrap:break-word;
+	
+}

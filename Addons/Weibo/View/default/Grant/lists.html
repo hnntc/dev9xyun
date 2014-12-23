@@ -1,0 +1,84 @@
+<extend name="Base/common" />
+<block name="body">
+<div class="span9 page_message">
+<section id="contents"> 
+	 <ul class="tab-nav nav">
+		<li class=""><a href="{:addons_url('Weibo://Weibo/lists')}">微博列表<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class="current"><a href="{:addons_url('Weibo://Grant/lists')}">授权页面<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://Editor/lists')}">微博编辑器<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://History/lists')}">历史微博<b class="arrow fa fa-sort-up"></b></a></li>
+      <li class=""><a href="{:addons_url('Weibo://Rank/lists')}">排行榜<b class="arrow fa fa-sort-up"></b></a></li>
+	  </ul>
+	<div class="data-table">
+	<p class="normal_tips" style="margin-left:0px;margin-right:0px;">
+<!--	以下是两种-->授权方式：(请认真阅读)</br>
+	  进入微博官网进行授权<br>
+		在添加新的帐号之前点击<a href="" class="btn">更换新帐号进行登录</a> 进入微博官网登陆 然后返回当前页面的<a href="" class="btn">授权</a>按钮 进行授权或者权限的更新
+    </p>
+		<a href="http://weibo.com/logout.php" style="margin-top:30px;" target="_blank"  class="btn" >更换新帐号进行登录</a>
+		<a href="{$code_url}" style="margin-left:300px; margin-top:30px;" class="btn"  id="url" >授权</a>
+	<!--	<p class="normal_tips" style="margin-left:0px;margin-right:0px;">
+	   2>>如果帐号为自己申请，可以在下边的帐号密码进行填写授权
+
+    </p>
+		 <table cellpadding="0" cellspacing="1">
+		 
+		 <tbody>
+			<tr>
+				<td width="30">帐号</td>
+				<td>
+					<input type="text" class="users" name="username" style="font-size:16px;">
+				</td>
+			</tr>
+			<tr>
+				<td width="30">密码</td>
+				<td style="margin-bottom:3px;">
+					<input type="password" class="users"  name="password" style="font-size:16px; ">
+				</td>
+			</tr>
+		</tbody>
+		</table>
+		<div class="table-bar" style="margin-bottom:20px;margin-left:0px;margin-right:0px;">
+
+			<button class="btn ajax-post confirm" target-form="users" url="{:U('grant')}&id=1">授权</button>
+			
+  		</div>-->
+	</div>
+	 
+	
+</section>
+
+</div>
+
+</block>
+<block name="script">
+ <script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+	
+	//
+	
+	
+})
+
+</script> 
+</block>

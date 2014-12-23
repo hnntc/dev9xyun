@@ -1,0 +1,92 @@
+<extend name="Base/common" />
+<block name="head"><head><title>历史微博</title></head></block>
+<block name="body">
+<div class="span9 page_message">
+<section id="contents"> 
+	 <ul class="tab-nav nav">
+		<li class=""><a href="{:addons_url('Weibo://Weibo/lists')}">微博列表<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://Grant/lists')}">授权页面<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://Editor/lists')}">微博编辑器<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class=""><a href="{:addons_url('Weibo://History/lists')}">历史微博<b class="arrow fa fa-sort-up"></b></a></li>
+		<li class="current"><a href="{:addons_url('Weibo://Rank/lists')}">排行榜<b class="arrow fa fa-sort-up"></b></a></li>
+      </ul>
+	  
+	<p class="normal_tips">
+        一下数据更新频率为一天，并根据评论数量进行排序</br>
+		{$message}
+    </p>
+	<div class="table-bar">
+			<div class="tools">
+				<a class="btn"  href="{:U('lists_comments')}">评论数↑</a>
+				<a class="btn" 	href="{:U('lists_reposts')}">转发数↑</a>
+				<a class="btn"  href="{:U('lists_attitudes')}">赞↑</a>
+			</div>
+      </div>
+	<div class="data-table">
+        <div class=" table-striped">
+          <table cellpadding="0" cellspacing="1">
+
+				<thead>
+					<tr>
+							<th colspan=2>内容</th>
+							<th width="80">评论↑</th>
+							<th width="80">转发</th>
+							<th width="80">赞</th>
+							<th width="60">详情</th>
+					</tr>
+				</thead>
+				<tbody>
+					<volist name="list_data" id="data" key="key">
+					<tr>
+						<td width="30">{$rank_index[$key-1]} </td>
+						<td>{$data.text}</td>
+						<td>{$data.comments}</td>
+						<td>{$data.reposts}</td>
+						<td>{$data.attitudes}</td>
+						<td><a href="{:addons_url('Weibo://History/show')}?wid={$data.wid}" class="btn">详情</a></td>
+						
+					</tr>
+
+				</volist>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!---下边分页-->
+	 <div class="table-bar" style="margin-bottom:20px">
+        <div class="fl">
+        	<div class="page" style="margin:0"> {$_page|default=''} </div>
+        </div>
+        
+      </div>
+	</div>
+</section>
+	
+</block>
+<block name="script"> 
+  <script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+
+})
+</script> 
+</block>
