@@ -257,7 +257,8 @@ function showXiuxiu(){
 		//alert("上传响应" + data);  //可以开启调试
 		
 		 var show=document.getElementById("showXiuxiu");
-		 show.innerHTML='<img src="/Uploads/'+data+'" />';
+		 var url="__ROOT__/Uploads/"+data;
+		 show.innerHTML='<img src="'+url+'" />';
 		//var img_array=new Array();
 		img_array[0]=data;
 		// var show_q=$('#showXiuxiu');
