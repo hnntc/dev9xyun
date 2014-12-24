@@ -109,34 +109,39 @@ $(function(){
 			}
 		},
         'onUploadSuccess' : function(file, data, response) {
-			data=eval(data);
-            var src='__ROOT__/Uploads/'+ data;//图片路径 需要记录
-			//$('#img1').attr('src',src);
-			//pic_url[1]=src;
-			var html='<div class="imgdiv"><img src="__ADDONROOT__/Uploadify/delete.png" class="delete_icon" title="'+img_count+'"/><img  src="'+src+'"  class="result_img" /></div>';
-				img_array[img_count]=data+"";
-			//var html='<img  src="'+src+'" class="result_img" />';
-			$("#file_upload1").before(html);
-			//img_array+=data;
-			img_count++;//计数
-			true_num++;
-			//加载删除按钮
-				$(".delete_icon").unbind("click");  
-				$('.delete_icon').bind('click',function(){
-					var title=$(this).attr('title');
-					title=parseInt(title);
-					
-					var img_name=img_array[title];
-					$.get(del_url,{'img_name':img_name},function(data){
+			//data=eval(data);
+			//alert(data)
+			var error=data.search(/error/);
+			if(error==0){
+				alert(data);
+			}else{
+				var src='__ROOT__/Uploads/'+ data;//图片路径 需要记录
+				//$('#img1').attr('src',src);
+				//pic_url[1]=src;
+				var html='<div class="imgdiv"><img src="__ADDONROOT__/Uploadify/delete.png" class="delete_icon" title="'+img_count+'"/><img  src="'+src+'"  class="result_img" /></div>';
+					img_array[img_count]=data+"";
+				//var html='<img  src="'+src+'" class="result_img" />';
+				$("#file_upload1").before(html);
+				//img_array+=data;
+				img_count++;//计数
+				true_num++;
+				//加载删除按钮
+					$(".delete_icon").unbind("click");  
+					$('.delete_icon').bind('click',function(){
+						var title=$(this).attr('title');
+						title=parseInt(title);
 						
+						var img_name=img_array[title];
+						$.get(del_url,{'img_name':img_name},function(data){
+							
+						});
+						//alert("删除第"+title+"张图片");
+						$(this).parent().remove();
+						true_num--;
+						img_array[title]="empty";
 					});
-					//alert("删除第"+title+"张图片");
-					$(this).parent().remove();
-					true_num--;
-					img_array[title]="empty";
-				});
 
-			
+			}
         },
     });
 	//发送数据

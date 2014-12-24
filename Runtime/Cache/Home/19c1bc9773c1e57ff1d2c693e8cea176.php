@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="/weiphp5/Addons/WeiboEditor/Uploadify/uploadify.css">
  <script type="text/javascript" src="/weiphp5/Addons/WeiboEditor/Uploadify/jquery.uploadify-3.1.js"></script>
 <script>
+var img_array=["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"];
 $(function(){
+	
 	$('#text').val('');	
 	$('#text').keyup(count_char);
 	$pic=$('#pic');
@@ -20,20 +22,20 @@ $(function(){
 		$pic.removeClass("chosen");
 		$emoji.removeClass('chosen');
 		$("#xiuxiuEditor").hide();
-		$("#showXiuxiu").hide();
+		//$("#showXiuxiu").hide();
 	});
 	var pic_url= new Array();
 	$('#pic_link').click(function(){
 		$pic.addClass("chosen");
 		$emoji.removeClass('chosen');
 		$("#xiuxiuEditor").hide();
-		$("#showXiuxiu").hide();		
+		//$("#showXiuxiu").hide();		
 	});
 	$('#emoji_link').click(function(){
 		$pic.removeClass("chosen");
 		$emoji.addClass('chosen');
 		$("#xiuxiuEditor").hide();	
-		$("#showXiuxiu").hide();		
+		//$("#showXiuxiu").hide();		
 		//加载表情
 		var url="<?php echo addons_url('WeiboEditor://WeiboEditor/getEmoji');?>";
 		$.get(url,function(data){
@@ -54,7 +56,7 @@ $(function(){
 		$pic.removeClass("chosen");
 		$emoji.removeClass('chosen');
 		$("#xiuxiuEditor").hide();
-		$("#showXiuxiu").hide();
+		//$("#showXiuxiu").hide();
 		$('#text').insertAtCursor("##");
 		var a=$('#text').getCurPos();
 		$('#text').setCurPos(a-1);
@@ -83,7 +85,7 @@ $(function(){
 	});
 	
 	//上传图片
-	var img_array=["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"];
+	
 	var img_count=0;
 	var true_num=0;
 	var max_img=1;
@@ -107,34 +109,39 @@ $(function(){
 			}
 		},
         'onUploadSuccess' : function(file, data, response) {
-			data=eval(data);
-            var src='/weiphp5/Uploads/'+ data;//图片路径 需要记录
-			//$('#img1').attr('src',src);
-			//pic_url[1]=src;
-			var html='<div class="imgdiv"><img src="/weiphp5/Addons/WeiboEditor/Uploadify/delete.png" class="delete_icon" title="'+img_count+'"/><img  src="'+src+'"  class="result_img" /></div>';
-				img_array[img_count]=data+"";
-			//var html='<img  src="'+src+'" class="result_img" />';
-			$("#file_upload1").before(html);
-			//img_array+=data;
-			img_count++;//计数
-			true_num++;
-			//加载删除按钮
-				$(".delete_icon").unbind("click");  
-				$('.delete_icon').bind('click',function(){
-					var title=$(this).attr('title');
-					title=parseInt(title);
-					
-					var img_name=img_array[title];
-					$.get(del_url,{'img_name':img_name},function(data){
+			//data=eval(data);
+			//alert(data)
+			var error=data.search(/error/);
+			if(error==0){
+				alert(data);
+			}else{
+				var src='/weiphp5/Uploads/'+ data;//图片路径 需要记录
+				//$('#img1').attr('src',src);
+				//pic_url[1]=src;
+				var html='<div class="imgdiv"><img src="/weiphp5/Addons/WeiboEditor/Uploadify/delete.png" class="delete_icon" title="'+img_count+'"/><img  src="'+src+'"  class="result_img" /></div>';
+					img_array[img_count]=data+"";
+				//var html='<img  src="'+src+'" class="result_img" />';
+				$("#file_upload1").before(html);
+				//img_array+=data;
+				img_count++;//计数
+				true_num++;
+				//加载删除按钮
+					$(".delete_icon").unbind("click");  
+					$('.delete_icon').bind('click',function(){
+						var title=$(this).attr('title');
+						title=parseInt(title);
 						
+						var img_name=img_array[title];
+						$.get(del_url,{'img_name':img_name},function(data){
+							
+						});
+						//alert("删除第"+title+"张图片");
+						$(this).parent().remove();
+						true_num--;
+						img_array[title]="empty";
 					});
-					//alert("删除第"+title+"张图片");
-					$(this).parent().remove();
-					true_num--;
-					img_array[title]="empty";
-				});
 
-			
+			}
         },
     });
 	//发送数据
@@ -153,8 +160,9 @@ $(function(){
 				index++;
 			}
 		}
+		$("#showXiuxiu").hide();
 		//图片数组
-		
+		//alert(images_list[0]);
 		var text_info=$('#text').val();
 		var info={'EditCode':EditCode,'text_info':text_info,'pic_urls':images_list};
 		var url='<?php echo addons_url("WeiboEditor://WeiboEditor/send");?>';
@@ -203,7 +211,7 @@ $(function(){
 	$('#pics_link').click(showXiuxiu);
 	$('#pics_link').click(function(){
 		$("#xiuxiuEditor").show();
-		$("#showXiuxiu").hide();
+		//$("#showXiuxiu").hide();
 		$pic.removeClass("chosen");
 		$emoji.removeClass('chosen');
 	});
@@ -247,13 +255,16 @@ function showXiuxiu(){
 	{
 		//
 		//alert("上传响应" + data);  //可以开启调试
+		
 		 var show=document.getElementById("showXiuxiu");
-		 var editor=document.getElementById("xiuxiuEditor");
-		 show.style.display="inline";
-		 editor.style.display="none";
-		 img_array[0]=data;
-		 //show.innerHTML='img src="/Uploads/'+data+'"/>';
-		 show.innerHTML=data;
+		 show.innerHTML='<img src="/Uploads/'+data+'" />';
+		//var img_array=new Array();
+		img_array[0]=data;
+		// var show_q=$('#showXiuxiu');
+		var editor=document.getElementById("xiuxiuEditor");
+		// show.style.display="inline";
+		editor.style.display="none";
+		
 	}
 }
 
@@ -568,8 +579,16 @@ height:30px;
 #showXiuxiu{
 	position:relative;
 	left:0px;
-	top:150px;
-	border:1px solid red;
+	top:160px;
+	border:0px solid red;
+	width:360px;
+}
+#showXiuxiu img{
+	position:absolute;
+	left:0px;
+	top:0px;
+	margin:0px;
+	padding:0;
 	width:360px;
 }
 </style>

@@ -75,7 +75,7 @@ class WeiboEditorController extends AddonsController{
                 //$this->error($upload->getError());//获取失败信息
 				$info="error".$upload->getError();
             }
-			$this->ajaxReturn($info);
+			echo $info;
         }
     }
 	public function img_del(){
