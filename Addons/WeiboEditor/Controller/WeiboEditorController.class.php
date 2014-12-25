@@ -29,7 +29,7 @@ class WeiboEditorController extends AddonsController{
 					'maxSize'    =>    3145728, 
 					'savePath'   =>    '',  
                 		'saveName'   =>    array('uniqid',''), 
-                		'exts'       =>    array('jpg', 'gif', 'png', 'jpeg'),  
+                		'exts'       =>    array('jpg', 'png', 'jpeg'),  
                 		'autoSub'    =>    true,   
                 		'subName'    =>    array('date','Ymd'),
             		);
@@ -58,7 +58,7 @@ class WeiboEditorController extends AddonsController{
                 'maxSize'    =>    3145728, 
                 'savePath'   =>    '',  
                 'saveName'   =>    array('uniqid',''), 
-                'exts'       =>    array('jpg', 'gif', 'png', 'jpeg'),  
+                'exts'       =>    array('jpg','gif','png', 'jpeg'),  
                 'autoSub'    =>    true,   
                 'subName'    =>    array('date','Ymd'),
             );
@@ -75,6 +75,7 @@ class WeiboEditorController extends AddonsController{
                 //$this->error($upload->getError());//获取失败信息
 				$info="error".$upload->getError();
             }
+			chmod("/Uploads/".$images['Filedata']['savepath'],0666);
 			echo $info;
         }
     }

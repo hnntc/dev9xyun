@@ -7,7 +7,7 @@
 <script src="/weiphp5/Addons/WeiboEditor/js/jquery.js"></script>
 <script src="/weiphp5/Addons/WeiboEditor/js/jquery.cursor.js"></script>
 <link rel="stylesheet" href="/weiphp5/Addons/WeiboEditor/Uploadify/uploadify.css">
- <script type="text/javascript" src="/weiphp5/Addons/WeiboEditor/Uploadify/jquery.uploadify-3.1.js"></script>
+ <script type="text/javascript" src="/weiphp5/Addons/WeiboEditor/Uploadify/jquery.uploadify.js"></script>
 <script>
 var img_array=["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"];
 $(function(){
